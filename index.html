@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Stays North Beach | North Beach Perth</title>
+  <meta name="description" content="Two private stays in North Beach, Perth: The Midnight Hideaway and the Front Residence. Check Airbnb-synced availability and request your stay directly with Mel.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top"><span class="brand-mark">NB</span><span><b>Stays</b><small>North Beach</small></span></a>
+    <nav><a href="#stays">The stays</a><a href="#availability">Availability</a><a href="#contact">Request a stay</a></nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">NORTH BEACH · PERTH · WESTERN AUSTRALIA</p>
+        <h1>One address.<br><em>Two private stays.</em></h1>
+        <p class="lead">Choose the warm, design-led Midnight Hideaway or the relaxed Front Residence. Airbnb remains our master calendar and Mel personally reviews every direct booking request.</p>
+        <a class="button" href="#availability">Check availability</a>
+      </div>
+      <div class="hero-panel"><span>Beautiful stays.</span><span>Local knowledge.</span><span>Genuine care.</span></div>
+    </section>
+
+    <section id="stays" class="section">
+      <div class="section-heading"><p class="eyebrow dark">THE STAYS</p><h2>Choose the home that fits.</h2></div>
+      <div class="stay-grid">
+        <article><p class="eyebrow light">01 · DARK · WARM · PRIVATE</p><h3>The Midnight Hideaway</h3><p>Approx. 90 m² with two good-sized bedrooms, a spacious kitchen and living area, private rear entrance and dedicated parking.</p><p class="detail">2 bedrooms · 2 bathrooms</p></article>
+        <article><p class="eyebrow light">02 · EASY · RELAXED · PRIVATE</p><h3>Front Residence</h3><p>A private North Beach home with open-plan living, courtyard, garden and its own driveway parking.</p><p class="detail">2 bedrooms · 1 bathroom</p></article>
+      </div>
+    </section>
+
+    <section id="availability" class="availability section">
+      <div class="section-heading"><p class="eyebrow dark">AIRBNB-SYNCED DATES</p><h2>Check availability.</h2><p>Booked and blocked Airbnb dates are read into this website. We always make one final check before confirming a direct stay.</p></div>
+      <div id="availabilityStatus" class="status">Loading Airbnb availability…</div>
+      <div class="availability-grid">
+        <div class="availability-card"><h3>The Midnight Hideaway</h3><div id="midnightCalendar" class="calendar-list"></div></div>
+        <div class="availability-card"><h3>Front Residence</h3><div id="frontCalendar" class="calendar-list"></div></div>
+      </div>
+    </section>
+
+    <section id="contact" class="request section">
+      <div class="section-heading"><p class="eyebrow dark">REQUEST YOUR STAY</p><h2>Tell Mel your preferred dates.</h2></div>
+      <form name="booking-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="bookingForm">
+        <input type="hidden" name="form-name" value="booking-enquiry">
+        <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
+        <div class="form-grid">
+          <label>Name<input required name="name" autocomplete="name"></label>
+          <label>Email<input required type="email" name="email" autocomplete="email"></label>
+          <label>Phone<input name="phone" autocomplete="tel"></label>
+          <label>Stay<select name="stay" id="stayChoice" required><option value="">Choose</option><option value="midnight">The Midnight Hideaway</option><option value="front">Front Residence</option></select></label>
+          <label>Check-in<input required type="date" name="checkin" id="checkin"></label>
+          <label>Check-out<input required type="date" name="checkout" id="checkout"></label>
+        </div>
+        <label>Who is travelling / reason for stay<textarea name="message" rows="4"></textarea></label>
+        <p id="formMessage" class="form-message"></p>
+        <button class="button" type="submit">Request these dates</button>
+      </form>
+      <p class="small-note">A request is not an automatic booking. Mel personally confirms availability and guest details first.</p>
+    </section>
+  </main>
+
+  <footer><b>Stays North Beach</b><span>North Beach, Western Australia</span></footer>
+  <script src="site-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

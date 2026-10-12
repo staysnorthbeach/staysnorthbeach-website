@@ -29,7 +29,7 @@
   }
 
   function selectionText(key){
-    if(selection.key!==key||!selection.start)return 'Tap an available date for check-in, then tap another available date for check-out.';
+    if(selection.key!==key||!selection.start)return 'Tap a green date for check-in, then tap another green date for check-out.';
     if(!selection.end)return `Check-in: ${fmt(selection.start)}. Now choose your check-out date.`;
     return `Selected: ${fmt(selection.start)} – ${fmt(selection.end)}. Your form below has been filled in.`;
   }
@@ -85,7 +85,6 @@
         <div class="calendar-legend">
           <span><i class="legend-dot available-dot"></i>Available</span>
           <span><i class="legend-dot blocked-dot"></i>Unavailable</span>
-          <span><i class="legend-dot selected-dot"></i>Your dates</span>
         </div>
         <p class="calendar-help" aria-live="polite">${selectionText(key)}</p>
       </div>`;
@@ -139,7 +138,7 @@
       calendars.midnight=data.midnight||[];
       calendars.front=data.front||[];
       renderAll();
-      status.textContent='Airbnb availability loaded. Use the arrows to view future months, then choose your check-in and check-out dates directly on the calendar. Dates are subject to Mel’s final confirmation.';
+      status.textContent='Airbnb availability loaded. Green dates are available and red dates are unavailable. Use the arrows to view future months, then choose your check-in and check-out dates. Dates are subject to Mel’s final confirmation.';
     }catch(e){
       console.error(e);
       status.textContent='The website is live, but Airbnb availability could not be loaded right now. Please submit your preferred dates and Mel will confirm them manually.';

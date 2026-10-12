@@ -1,0 +1,1 @@
+window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261012-2">
+  <link rel="stylesheet" href="styles.css?v=20261012-3">
   <link rel="stylesheet" href="calendar-contrast.css?v=20261012-1">
 </head>
 <body>
@@ -33,7 +33,7 @@
         <p class="eyebrow">NORTH BEACH · PERTH · WESTERN AUSTRALIA</p>
         <h1>One address.<br><em>Two private stays.</em></h1>
         <p class="lead">Choose the warm, design-led Midnight Hideaway or the relaxed Front Residence. Airbnb remains our master calendar and Mel personally reviews every direct booking request.</p>
-        <a class="button" href="#availability">Check availability</a>
+        <div class="hero-cta-row"><a class="button" href="#availability">Check availability</a><span class="direct-save-pill">Book direct & save 8%</span></div>
       </div>
       <div class="hero-panel"><span>Beautiful stays.</span><span>Local knowledge.</span><span>Genuine care.</span></div>
     </section>
@@ -48,6 +48,7 @@
 
     <section id="availability" class="availability section">
       <div class="section-heading"><p class="eyebrow dark">AIRBNB-SYNCED DATES</p><h2>Check availability.</h2><p>Booked and blocked Airbnb dates are read into this website. We always make one final check before confirming a direct stay.</p></div>
+      <div class="direct-save-banner"><strong>Book direct and save 8%</strong><span>Our direct accommodation rate is 8% cheaper than the comparable accommodation price advertised on Airbnb for the same dates. Final pricing is confirmed with your booking request.</span></div>
       <div id="availabilityStatus" class="status">Loading Airbnb availability…</div>
       <div class="availability-grid">
         <div class="availability-card"><h3>The Midnight Hideaway</h3><div id="midnightCalendar" class="calendar-list"></div></div>
@@ -56,7 +57,7 @@
     </section>
 
     <section id="contact" class="request section">
-      <div class="section-heading"><p class="eyebrow dark">REQUEST YOUR STAY</p><h2>Tell Mel your preferred dates.</h2></div>
+      <div class="section-heading"><p class="eyebrow dark">REQUEST YOUR STAY</p><h2>Tell Mel your preferred dates.</h2><p class="request-saving"><strong>Direct booking benefit:</strong> 8% cheaper than the comparable accommodation price advertised on Airbnb for the same dates.</p></div>
       <form name="booking-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="bookingForm">
         <input type="hidden" name="form-name" value="booking-enquiry">
         <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
@@ -72,7 +73,7 @@
         <p id="formMessage" class="form-message"></p>
         <button class="button" type="submit">Request these dates</button>
       </form>
-      <p class="small-note">A request is not an automatic booking. Mel personally confirms availability and guest details first.</p>
+      <p class="small-note">A request is not an automatic booking. Mel personally confirms availability, guest details and the final direct price first.</p>
     </section>
   </main>
 

@@ -8,9 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261012-3">
-  <link rel="stylesheet" href="calendar-contrast.css?v=20261012-1">
-  <link rel="stylesheet" href="social-brand-colours.css?v=20261012-1">
+  <link rel="stylesheet" href="styles.css?v=20261013-1">
+  <link rel="stylesheet" href="calendar-contrast.css?v=20261013-1">
+  <link rel="stylesheet" href="social-brand-colours.css?v=20261013-1">
+  <link rel="stylesheet" href="site-upgrades.css?v=20261013-1">
 </head>
 <body>
   <header class="site-header">
@@ -42,13 +43,27 @@
     <section id="stays" class="section">
       <div class="section-heading"><p class="eyebrow dark">THE STAYS</p><h2>Choose the home that fits.</h2></div>
       <div class="stay-grid">
-        <article><p class="eyebrow light">01 · DARK · WARM · PRIVATE</p><h3>The Midnight Hideaway</h3><p>Approx. 90 m² with two good-sized bedrooms, a spacious kitchen and living area, private rear entrance and dedicated parking.</p><p class="detail">2 bedrooms · 2 bathrooms</p></article>
-        <article><p class="eyebrow light">02 · EASY · RELAXED · PRIVATE</p><h3>Front Residence</h3><p>A private North Beach home with open-plan living, courtyard, garden and its own driveway parking.</p><p class="detail">2 bedrooms · 1 bathroom</p></article>
+        <article class="stay-card">
+          <img class="stay-photo-main" src="assets/midnight-hero.webp" alt="The Midnight Hideaway in North Beach" loading="lazy">
+          <div class="stay-copy"><p class="eyebrow light">01 · DARK · WARM · PRIVATE</p><h3>The Midnight Hideaway</h3><p>Approx. 90 m² with two good-sized bedrooms, a spacious kitchen and living area, private rear entrance and dedicated parking.</p><p class="detail">2 bedrooms · 2 bathrooms</p></div>
+          <div class="stay-gallery">
+            <img src="assets/midnight-living.webp" alt="Midnight Hideaway living area" loading="lazy">
+            <img src="assets/midnight-bathroom.webp" alt="Midnight Hideaway bathroom" loading="lazy">
+          </div>
+        </article>
+        <article class="stay-card">
+          <img class="stay-photo-main" src="assets/front-courtyard.webp" alt="Front Residence courtyard in North Beach" loading="lazy">
+          <div class="stay-copy"><p class="eyebrow light">02 · EASY · RELAXED · PRIVATE</p><h3>Front Residence</h3><p>A private North Beach home with open-plan living, courtyard, garden and its own driveway parking.</p><p class="detail">2 bedrooms · 1 bathroom</p></div>
+          <div class="stay-gallery">
+            <img src="assets/front-kitchen.webp" alt="Front Residence kitchen" loading="lazy">
+            <img src="assets/front-garden.webp" alt="Front Residence garden" loading="lazy">
+          </div>
+        </article>
       </div>
     </section>
 
     <section id="availability" class="availability section">
-      <div class="section-heading"><p class="eyebrow dark">AIRBNB-SYNCED DATES</p><h2>Check availability.</h2><p>Booked and blocked Airbnb dates are read into this website. We always make one final check before confirming a direct stay.</p></div>
+      <div class="section-heading"><p class="eyebrow dark">AIRBNB-SYNCED DATES</p><h2>Check availability.</h2><p>Booked and blocked Airbnb dates are read into this website. Green dates are available and red dates are unavailable. We always make one final check before confirming a direct stay.</p></div>
       <div class="direct-save-banner"><strong>Book direct and save 8%</strong><span>Our direct accommodation rate is 8% cheaper than the comparable accommodation price advertised on Airbnb for the same dates. Final pricing is confirmed with your booking request.</span></div>
       <div id="availabilityStatus" class="status">Loading Airbnb availability…</div>
       <div class="availability-grid">
@@ -58,9 +73,10 @@
     </section>
 
     <section id="contact" class="request section">
-      <div class="section-heading"><p class="eyebrow dark">REQUEST YOUR STAY</p><h2>Tell Mel your preferred dates.</h2><p class="request-saving"><strong>Direct booking benefit:</strong> 8% cheaper than the comparable accommodation price advertised on Airbnb for the same dates.</p></div>
-      <form name="booking-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="bookingForm">
+      <div class="section-heading"><p class="eyebrow dark">REQUEST YOUR STAY</p><h2>Tell Mel your preferred dates.</h2><p class="request-saving"><strong>Direct booking benefit:</strong> 8% cheaper than the comparable accommodation price advertised on Airbnb for the same dates.</p><p class="contact-email">All booking enquiries are handled via <a href="mailto:stays@staysnorthbeach.com.au">stays@staysnorthbeach.com.au</a>.</p></div>
+      <form name="booking-enquiry" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field" id="bookingForm">
         <input type="hidden" name="form-name" value="booking-enquiry">
+        <input type="hidden" name="subject" value="New Stays North Beach booking enquiry">
         <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
         <div class="form-grid">
           <label>Name<input required name="name" autocomplete="name"></label>
@@ -71,6 +87,7 @@
           <label>Check-out<input required type="date" name="checkout" id="checkout"></label>
         </div>
         <label>Who is travelling / reason for stay<textarea name="message" rows="4"></textarea></label>
+        <p class="form-confirm-note">After you submit, you’ll see an immediate confirmation that we’ve received your enquiry. We’ll then contact you very soon after reviewing the dates and guest details.</p>
         <p id="formMessage" class="form-message"></p>
         <button class="button" type="submit">Request these dates</button>
       </form>
@@ -79,7 +96,7 @@
   </main>
 
   <footer>
-    <div class="footer-brand"><b>Stays North Beach</b><span>North Beach, Western Australia</span></div>
+    <div class="footer-brand"><b>Stays North Beach</b><span>North Beach, Western Australia</span><a href="mailto:stays@staysnorthbeach.com.au">stays@staysnorthbeach.com.au</a></div>
     <div class="social-links social-links-footer" aria-label="Social media">
       <a href="https://www.facebook.com/staysnorthbeach" target="_blank" rel="noopener noreferrer" aria-label="Stays North Beach on Facebook"><span>Facebook</span></a>
       <a href="https://www.instagram.com/stays_northbeach/" target="_blank" rel="noopener noreferrer" aria-label="Stays North Beach on Instagram"><span>Instagram</span></a>

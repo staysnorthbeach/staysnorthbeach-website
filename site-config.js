@@ -60,16 +60,32 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
   if(form){
     form.addEventListener('submit',e=>{
       e.preventDefault();
+      const msg=document.getElementById('formMessage');
+      const button=form.querySelector('button[type="submit"]');
+
+      if(!form.checkValidity()){
+        form.reportValidity();
+        if(msg) msg.textContent='Please complete the required fields above.';
+        return;
+      }
+
+      // Clear any old validation message before script.js checks the CURRENT dates.
+      if(msg) msg.textContent='';
+
       setTimeout(async()=>{
-        const msg=document.getElementById('formMessage');
         const text=(msg?.textContent||'').toLowerCase();
-        if(text.includes('please choose')||text.includes('overlap an airbnb booking')) return;
-        const button=form.querySelector('button[type="submit"]');
+        if(text.includes('check-out date after check-in')||text.includes('overlap an airbnb booking')||text.includes('cross an unavailable airbnb date')) return;
+
         if(button){button.disabled=true;button.textContent='Sending…';}
         if(msg) msg.textContent='Sending your enquiry securely…';
+
         try{
           const body=new URLSearchParams(new FormData(form)).toString();
-          const response=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body});
+          const response=await fetch('/',{
+            method:'POST',
+            headers:{'Content-Type':'application/x-www-form-urlencoded'},
+            body
+          });
           if(!response.ok) throw new Error(`Form submission returned ${response.status}`);
           window.location.assign('/thank-you.html');
         }catch(err){

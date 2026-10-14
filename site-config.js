@@ -137,4 +137,8 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
     if(e.key==='ArrowLeft'){e.stopImmediatePropagation();move(-1);}
     if(e.key==='ArrowRight'){e.stopImmediatePropagation();move(1);}
   },true);
+
+  const localCards=document.querySelectorAll('#local .local-grid article');
+  if(localCards[1]) localCards[1].querySelector('span').textContent='North Beach and Mettams Pool are only about a 4–5 minute walk away, making a quick beach swim or sunset stroll easy.';
+  if(localCards[2]) localCards[2].querySelector('span').textContent='Local cafés and casual dining are within easy walking distance, with Karrinyup and Scarborough also close by for more shopping and dining options.';
 })();

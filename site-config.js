@@ -6,6 +6,7 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
 
   form.addEventListener('submit',async e=>{
     e.preventDefault();
+    e.stopImmediatePropagation();
     const msg=document.getElementById('formMessage');
     const button=form.querySelector('button[type="submit"]');
 
@@ -15,7 +16,6 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
       return;
     }
 
-    const stay=form.querySelector('[name="stay"]')?.value||'';
     const start=form.querySelector('[name="checkin"]')?.value||'';
     const end=form.querySelector('[name="checkout"]')?.value||'';
     if(end<=start){
@@ -30,11 +30,14 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
       const body=new URLSearchParams(new FormData(form)).toString();
       const response=await fetch('/.netlify/functions/submit-enquiry',{
         method:'POST',
-        headers:{'Content-Type':'application/x-www-form-urlencoded'},
-        body
+        headers:{'Content-Type':'application/x-www-form-urlencoded','Accept':'application/json'},
+        body,
+        cache:'no-store'
       });
-      if(!response.ok)throw new Error(`Submission returned ${response.status}`);
-      window.location.href='/thank-you.html';
+      const result=await response.json().catch(()=>null);
+      if(!response.ok||!result?.ok)throw new Error(result?.error||`Submission returned ${response.status}`);
+      if(msg)msg.textContent='Enquiry sent. Opening your confirmation…';
+      window.location.assign('/thank-you.html');
     }catch(error){
       console.error('Enquiry submission failed',error);
       if(msg)msg.textContent='We could not send your enquiry just now. Please email stay@staysnorthbeach.com.au and we will help you directly.';

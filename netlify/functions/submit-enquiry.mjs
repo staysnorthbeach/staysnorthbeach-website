@@ -14,10 +14,7 @@ async function sendEmail(payload) {
   if (!apiKey) throw new Error('Missing RESEND_API_KEY');
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
-    },
+    headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
   if (!response.ok) {
@@ -26,21 +23,19 @@ async function sendEmail(payload) {
   }
 }
 
-function redirect(location) {
-  return { statusCode: 303, headers: { Location: location, 'Cache-Control': 'no-store' }, body: '' };
+function json(statusCode, payload) {
+  return {statusCode, headers:{'Content-Type':'application/json','Cache-Control':'no-store'}, body:JSON.stringify(payload)};
 }
 
 export async function handler(event) {
-  if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method not allowed' };
+  if (event.httpMethod !== 'POST') return json(405,{ok:false,error:'Method not allowed'});
 
   try {
     const type = (event.headers['content-type'] || event.headers['Content-Type'] || '').toLowerCase();
-    if (!type.includes('application/x-www-form-urlencoded')) {
-      return { statusCode: 400, body: 'Unsupported form submission.' };
-    }
+    if (!type.includes('application/x-www-form-urlencoded')) return json(400,{ok:false,error:'Unsupported form submission'});
 
     const data = Object.fromEntries(new URLSearchParams(event.body || ''));
-    if (clean(data['bot-field'])) return redirect('/thank-you.html');
+    if (clean(data['bot-field'])) return json(200,{ok:true});
 
     const guestName = clean(data.name);
     const guestEmail = clean(data.email);
@@ -51,9 +46,9 @@ export async function handler(event) {
     const message = clean(data.message) || 'Not provided';
 
     if (!guestName || !guestEmail || !guestEmail.includes('@') || !stayValue || !checkinRaw || !checkoutRaw) {
-      return redirect('/?enquiry=missing#contact');
+      return json(400,{ok:false,error:'Please complete all required fields'});
     }
-    if (checkoutRaw <= checkinRaw) return redirect('/?enquiry=dates#contact');
+    if (checkoutRaw <= checkinRaw) return json(400,{ok:false,error:'Check-out must be after check-in'});
 
     const stay = stayValue === 'midnight' ? 'The Midnight Hideaway' : stayValue === 'front' ? 'North Beach House' : stayValue;
     const checkin = formatDate(checkinRaw);
@@ -72,9 +67,9 @@ export async function handler(event) {
       sendEmail({from:FROM_EMAIL,to:[OWNER_EMAIL],subject:ownerSubject,text:ownerText,html:ownerHtml,reply_to:guestEmail,tags:[{name:'type',value:'booking-enquiry-owner'}]})
     ]);
 
-    return redirect('/thank-you.html');
+    return json(200,{ok:true});
   } catch (error) {
     console.error('submit-enquiry failed', error);
-    return redirect('/?enquiry=error#contact');
+    return json(500,{ok:false,error:'Email delivery failed'});
   }
 }

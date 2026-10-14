@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>North Beach Accommodation Perth | Stays North Beach</title>
-  <meta name="description" content="Two private boutique stays in North Beach, Perth. Explore The Midnight Hideaway and Front Residence, check Airbnb-synced availability and request a direct stay for 8% less than the comparable Airbnb accommodation price.">
+  <meta name="description" content="Two private boutique stays in North Beach, Perth: The Midnight Hideaway and North Beach House. Explore genuine property photos, Airbnb-synced availability and direct booking requests with an 8% accommodation saving.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#171a1a">
   <link rel="canonical" href="https://www.staysnorthbeach.com.au/">
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Stays North Beach">
   <meta property="og:title" content="Boutique North Beach Accommodation | Stays North Beach">
-  <meta property="og:description" content="Two private, design-led stays near Perth's coast. Check Airbnb-synced availability and request your stay direct.">
+  <meta property="og:description" content="The Midnight Hideaway and North Beach House — two private coastal stays in North Beach, Perth.">
   <meta property="og:url" content="https://www.staysnorthbeach.com.au/">
   <meta property="og:image" content="https://www.staysnorthbeach.com.au/assets/midnight-hero.jpg">
   <meta property="og:image:alt" content="The Midnight Hideaway courtyard at sunset in North Beach, Perth">
@@ -28,7 +28,8 @@
   <link rel="stylesheet" href="styles.css?v=20261013-1">
   <link rel="stylesheet" href="calendar-contrast.css?v=20261013-1">
   <link rel="stylesheet" href="social-brand-colours.css?v=20261013-2">
-  <link rel="stylesheet" href="site-upgrades.css?v=20261013-4">
+  <link rel="stylesheet" href="site-upgrades.css?v=20261014-1">
+  <link rel="stylesheet" href="gallery.css?v=20261014-1">
 
   <script type="application/ld+json">
   {
@@ -36,6 +37,8 @@
     "@graph":[
       {"@type":"WebSite","@id":"https://www.staysnorthbeach.com.au/#website","url":"https://www.staysnorthbeach.com.au/","name":"Stays North Beach","description":"Two private boutique stays in North Beach, Perth, Western Australia.","inLanguage":"en-AU"},
       {"@type":"Organization","@id":"https://www.staysnorthbeach.com.au/#organization","name":"Stays North Beach","url":"https://www.staysnorthbeach.com.au/","email":"stay@staysnorthbeach.com.au","sameAs":["https://www.facebook.com/staysnorthbeach","https://www.instagram.com/stays_northbeach/"]},
+      {"@type":"LodgingBusiness","name":"The Midnight Hideaway","url":"https://www.staysnorthbeach.com.au/#midnight-hideaway","image":["https://www.staysnorthbeach.com.au/assets/midnight-hero.jpg","https://www.staysnorthbeach.com.au/assets/midnight-living.jpg","https://www.staysnorthbeach.com.au/assets/midnight-bathroom.jpg"],"description":"A private design-led two-bedroom, two-bathroom guesthouse in North Beach, Perth with a private rear entrance and dedicated parking."},
+      {"@type":"LodgingBusiness","name":"North Beach House","url":"https://www.staysnorthbeach.com.au/#north-beach-house","image":["https://www.staysnorthbeach.com.au/assets/front-courtyard.jpg","https://www.staysnorthbeach.com.au/assets/front-kitchen.jpg","https://www.staysnorthbeach.com.au/assets/front-bathroom.jpg"],"description":"A beautifully renovated private two-bedroom coastal home in North Beach, Perth with indoor-outdoor living, courtyard, garden and parking."},
       {"@type":"FAQPage","mainEntity":[
         {"@type":"Question","name":"How does direct booking work?","acceptedAnswer":{"@type":"Answer","text":"Choose your preferred stay and dates, submit an enquiry, and Mel will recheck Airbnb availability, guest details and the final direct price before confirming the booking."}},
         {"@type":"Question","name":"Is the website calendar live?","acceptedAnswer":{"@type":"Answer","text":"The website reads booked and blocked dates from Airbnb via calendar sync. Because calendar feeds can take time to refresh, availability is always rechecked before a direct stay is confirmed."}},
@@ -63,7 +66,7 @@
       <div>
         <p class="eyebrow">NORTH BEACH · PERTH · WESTERN AUSTRALIA</p>
         <h1>Boutique coastal stays.<br><em>Made to feel memorable.</em></h1>
-        <p class="lead">Two beautifully considered private stays in one of Perth’s most relaxed coastal neighbourhoods — each with its own personality, privacy and easy access to the beach.</p>
+        <p class="lead">The Midnight Hideaway and North Beach House — two beautifully considered private stays in one of Perth’s most relaxed coastal neighbourhoods, each with its own personality, privacy and easy access to the coast.</p>
         <div class="hero-cta-row"><a class="button" href="#availability">Check availability</a><a class="button secondary" href="#stays">Explore the stays</a><span class="direct-save-pill">Book direct & save 8%</span></div>
         <div class="trust-row"><span>Airbnb-synced dates</span><span>Personally reviewed requests</span><span>Direct local contact</span></div>
       </div>
@@ -71,22 +74,40 @@
     </section>
 
     <section id="stays" class="section">
-      <div class="section-heading"><p class="eyebrow dark">THE STAYS</p><h2>Two distinct ways to stay in North Beach.</h2><p>Choose the darker, design-led character of The Midnight Hideaway or the relaxed, light-filled comfort of the Front Residence.</p></div>
+      <div class="section-heading"><p class="eyebrow dark">THE STAYS</p><h2>Two distinct ways to stay in North Beach.</h2><p>Choose the darker, design-led character of The Midnight Hideaway or the relaxed, light-filled coastal comfort of North Beach House.</p></div>
       <div class="stay-grid">
-        <article class="stay-card premium-card">
-          <img class="stay-photo-main" src="assets/midnight-hero.jpg" alt="The Midnight Hideaway courtyard at sunset in North Beach, Perth" loading="eager" fetchpriority="high">
-          <div class="stay-copy"><p class="eyebrow light">PRIVATE · DESIGN-LED · ATMOSPHERIC</p><h3>The Midnight Hideaway</h3><p>A distinctive approximately 90 m² private guesthouse with rich materials, warm lighting and a secluded rear setting. Two bedrooms, two bathrooms, generous kitchen and living spaces, a private rear entrance and dedicated parking create an easy, elevated stay.</p><p class="detail">2 bedrooms · 2 bathrooms · private entrance · dedicated parking</p></div>
+        <article id="midnight-hideaway" class="stay-card premium-card">
+          <button class="stay-photo-button gallery-trigger" type="button" data-gallery="midnight" data-index="0" aria-label="View The Midnight Hideaway photo gallery"><img class="stay-photo-main" src="assets/midnight-hero.jpg" alt="The Midnight Hideaway courtyard at sunset in North Beach, Perth" loading="eager" fetchpriority="high"></button>
+          <div class="stay-copy">
+            <p class="eyebrow light">PRIVATE · DESIGN-LED · ATMOSPHERIC</p>
+            <h3>The Midnight Hideaway</h3>
+            <p>A distinctive approximately 90 m² private rear guesthouse designed for guests who value atmosphere, privacy and thoughtful detail. The open-plan kitchen and living area combines exposed brick, rich finishes and warm lighting, while two bedrooms and two bathrooms make longer stays feel easy.</p>
+            <p>The second bedroom can be arranged as two king singles or one super-king, giving couples, friends and families more flexibility. A private rear entrance and dedicated parking keep the stay completely independent, with only the main property gate shared.</p>
+            <div class="property-features"><span>2 bedrooms</span><span>2 bathrooms</span><span>Approx. 90 m²</span><span>Private rear entrance</span><span>Dedicated parking</span><span>Flexible second bedroom</span></div>
+            <div class="property-highlights"><strong>Why guests choose it</strong><ul><li>Dark, warm and design-led interiors</li><li>Generous open-plan kitchen and living space</li><li>Second bedroom: 2 king singles or 1 super-king</li><li>Private rear setting with dedicated parking</li></ul></div>
+            <div class="stay-actions"><button class="button gallery-trigger" type="button" data-gallery="midnight" data-index="0">View gallery</button><a class="button secondary" href="#availability">Check dates</a></div>
+          </div>
           <div class="stay-gallery">
-            <img src="assets/midnight-living.jpg" alt="Warm open-plan kitchen and living area at The Midnight Hideaway" loading="lazy">
-            <img src="assets/midnight-bathroom.jpg" alt="Modern bathroom at The Midnight Hideaway" loading="lazy">
+            <button class="gallery-thumb gallery-trigger" type="button" data-gallery="midnight" data-index="1" aria-label="View Midnight Hideaway living area"><img src="assets/midnight-living.jpg" alt="Warm open-plan kitchen and living area at The Midnight Hideaway" loading="lazy"></button>
+            <button class="gallery-thumb gallery-trigger" type="button" data-gallery="midnight" data-index="2" aria-label="View Midnight Hideaway bathroom"><img src="assets/midnight-bathroom.jpg" alt="Modern bathroom at The Midnight Hideaway" loading="lazy"></button>
           </div>
         </article>
-        <article class="stay-card premium-card">
-          <img class="stay-photo-main" src="assets/front-courtyard.jpg" alt="Private courtyard at the Front Residence in North Beach, Perth" loading="lazy">
-          <div class="stay-copy"><p class="eyebrow light">RELAXED · PRIVATE · COASTAL</p><h3>Front Residence</h3><p>A comfortable private North Beach home with an easy indoor-outdoor flow, open-plan kitchen and living area, courtyard and garden, its own entrance, driveway and parking — ideal for guests who want space, privacy and a genuine neighbourhood stay.</p><p class="detail">2 bedrooms · 1 bathroom · private entrance · driveway parking</p></div>
+
+        <article id="north-beach-house" class="stay-card premium-card">
+          <button class="stay-photo-button gallery-trigger" type="button" data-gallery="front" data-index="0" aria-label="View North Beach House photo gallery"><img class="stay-photo-main" src="assets/front-courtyard.jpg" alt="Private courtyard at North Beach House in North Beach, Perth" loading="lazy"></button>
+          <div class="stay-copy">
+            <p class="eyebrow light">RELAXED · RENOVATED · COASTAL</p>
+            <h3>North Beach House</h3>
+            <p>A beautifully renovated private coastal retreat for up to four guests, combining timeless character with modern comfort. Rich Japan Black Jarrah timber floors, light-filled interiors and a calm coastal palette create a home that feels polished without losing its relaxed North Beach character.</p>
+            <p>Two queen bedrooms, a new designer bathroom, fully equipped kitchen and generous lounge and dining spaces make it ideal for couples, families, friends, business travellers and longer stays. Full-width bi-fold doors connect the home to a private enclosed front courtyard, while the landscaped rear garden provides a second peaceful outdoor retreat.</p>
+            <div class="property-features"><span>Up to 4 guests</span><span>2 queen bedrooms</span><span>1 designer bathroom</span><span>Private courtyard</span><span>Landscaped garden</span><span>Complimentary parking</span></div>
+            <div class="property-highlights"><strong>Why guests choose it</strong><ul><li>Beautifully renovated private home</li><li>Japan Black Jarrah timber floors</li><li>Full-width opening bi-fold doors</li><li>Two private outdoor entertaining areas</li><li>Fully equipped kitchen, fast Wi-Fi and Smart TV</li><li>Premium hotel-quality linen</li></ul></div>
+            <p class="collection-note">Part of the Stays North Beach Collection alongside neighbouring sister property The Midnight Hideaway. Travelling with extended family or another couple? Ask about booking both residences together while keeping the privacy of two separate stays.</p>
+            <div class="stay-actions"><button class="button gallery-trigger" type="button" data-gallery="front" data-index="0">View gallery</button><a class="button secondary" href="#availability">Check dates</a></div>
+          </div>
           <div class="stay-gallery">
-            <img src="assets/front-kitchen.jpg" alt="Open-plan kitchen and living space at the Front Residence" loading="lazy">
-            <img src="assets/front-bathroom.jpg" alt="Modern bathroom at the Front Residence" loading="lazy">
+            <button class="gallery-thumb gallery-trigger" type="button" data-gallery="front" data-index="1" aria-label="View North Beach House kitchen"><img src="assets/front-kitchen.jpg" alt="Open-plan kitchen and living space at North Beach House" loading="lazy"></button>
+            <button class="gallery-thumb gallery-trigger" type="button" data-gallery="front" data-index="2" aria-label="View North Beach House bathroom"><img src="assets/front-bathroom.jpg" alt="Designer bathroom at North Beach House" loading="lazy"></button>
           </div>
         </article>
       </div>
@@ -99,14 +120,14 @@
 
     <section id="local" class="section local-area">
       <div class="section-heading"><p class="eyebrow dark">NORTH BEACH, PERTH</p><h2>Close to the coast, connected to everything.</h2><p>Stay in a relaxed residential pocket of North Beach with beaches, parks, shopping and some of Perth’s best-known coastal destinations within easy reach.</p></div>
-      <div class="local-grid"><article><strong>Walk nearby</strong><span>Charles Riley Memorial Reserve is about 200 m away, with a bus stop around 30 m from the property.</span></article><article><strong>Beach time</strong><span>Mettams Pool and North Beach are close by, with Trigg around a 5-minute drive.</span></article><article><strong>Shops & dining</strong><span>Karrinyup is around 7 minutes away and Scarborough around 10 minutes by car.</span></article><article><strong>Explore the coast</strong><span>Hillarys Boat Harbour is around 12 minutes away, making day trips and sunset outings easy.</span></article></div>
+      <div class="local-grid"><article><strong>Walk nearby</strong><span>Charles Riley Memorial Reserve is about 200 m away, with a bus stop around 30 m from the property.</span></article><article><strong>Beach time</strong><span>North Beach and Mettams Pool are close by, with Trigg around a 5-minute drive.</span></article><article><strong>Shops & dining</strong><span>Karrinyup is around 7 minutes away and Scarborough around 10 minutes by car.</span></article><article><strong>Explore the coast</strong><span>Hillarys Boat Harbour is around 12 minutes away, with coastal walks, cafés, restaurants and sunset outings within easy reach.</span></article></div>
     </section>
 
     <section id="availability" class="availability section">
       <div class="section-heading"><p class="eyebrow dark">AIRBNB-SYNCED DATES</p><h2>Check availability.</h2><p>Green dates are available and red dates are unavailable. Booked and blocked dates are read from Airbnb, and we make one final availability check before confirming a direct stay.</p></div>
       <div class="direct-save-banner"><strong>Book direct and save 8%</strong><span>Our direct accommodation rate is 8% cheaper than the comparable accommodation price advertised on Airbnb for the same dates. Final pricing is confirmed with your booking request.</span></div>
       <div id="availabilityStatus" class="status">Loading Airbnb availability…</div>
-      <div class="availability-grid"><div class="availability-card"><h3>The Midnight Hideaway</h3><div id="midnightCalendar" class="calendar-list"></div></div><div class="availability-card"><h3>Front Residence</h3><div id="frontCalendar" class="calendar-list"></div></div></div>
+      <div class="availability-grid"><div class="availability-card"><h3>The Midnight Hideaway</h3><div id="midnightCalendar" class="calendar-list"></div></div><div class="availability-card"><h3>North Beach House</h3><div id="frontCalendar" class="calendar-list"></div></div></div>
     </section>
 
     <section id="faq" class="section faq-section">
@@ -117,7 +138,7 @@
         <details><summary>Is booking direct cheaper?</summary><p>Yes. Our direct accommodation rate is 8% cheaper than the comparable accommodation price advertised on Airbnb for the same dates. Your final direct price is confirmed with your booking request.</p></details>
         <details><summary>Is my enquiry an automatic booking?</summary><p>No. Submitting the form sends a booking request only. Your stay is confirmed after availability, guest details and the final price have been reviewed.</p></details>
         <details><summary>What happens after I submit?</summary><p>You will immediately see a confirmation page. Once our email service is active, you will also receive an acknowledgement by email. Mel will then contact you with the next steps.</p></details>
-        <details><summary>Are the two stays private?</summary><p>Yes. Both stays have their own private accommodation areas and entrances. The Midnight Hideaway is at the rear of the property with dedicated parking, while the Front Residence has its own entrance, driveway and parking.</p></details>
+        <details><summary>Are the two stays private?</summary><p>Yes. Both stays have their own private accommodation areas and entrances. The Midnight Hideaway is at the rear of the property with dedicated parking, while North Beach House has its own entrance, driveway and parking.</p></details>
       </div>
     </section>
 
@@ -125,7 +146,7 @@
       <div class="section-heading"><p class="eyebrow dark">REQUEST YOUR STAY</p><h2>Tell Mel your preferred dates.</h2><p class="request-saving"><strong>Direct booking benefit:</strong> 8% cheaper than the comparable accommodation price advertised on Airbnb for the same dates.</p><p class="contact-email">All booking enquiries are handled via <a href="mailto:stay@staysnorthbeach.com.au">stay@staysnorthbeach.com.au</a>.</p></div>
       <form name="booking-enquiry" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field" id="bookingForm">
         <input type="hidden" name="form-name" value="booking-enquiry"><input type="hidden" name="subject" value="New Stays North Beach booking enquiry"><p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
-        <div class="form-grid"><label>Name<input required name="name" autocomplete="name"></label><label>Email<input required type="email" name="email" autocomplete="email"></label><label>Phone<input name="phone" autocomplete="tel"></label><label>Stay<select name="stay" id="stayChoice" required><option value="">Choose</option><option value="midnight">The Midnight Hideaway</option><option value="front">Front Residence</option></select></label><label>Check-in<input required type="date" name="checkin" id="checkin"></label><label>Check-out<input required type="date" name="checkout" id="checkout"></label></div>
+        <div class="form-grid"><label>Name<input required name="name" autocomplete="name"></label><label>Email<input required type="email" name="email" autocomplete="email"></label><label>Phone<input name="phone" autocomplete="tel"></label><label>Stay<select name="stay" id="stayChoice" required><option value="">Choose</option><option value="midnight">The Midnight Hideaway</option><option value="front">North Beach House</option></select></label><label>Check-in<input required type="date" name="checkin" id="checkin"></label><label>Check-out<input required type="date" name="checkout" id="checkout"></label></div>
         <label>Who is travelling / reason for stay<textarea name="message" rows="4" placeholder="Tell us a little about your group and your stay"></textarea></label>
         <p class="form-confirm-note">After you submit, you’ll see an immediate confirmation that we’ve received your enquiry. We’ll contact you very soon after reviewing the dates and guest details.</p><p id="formMessage" class="form-message"></p><button class="button" type="submit">Request these dates</button>
       </form>
@@ -133,7 +154,17 @@
     </section>
   </main>
 
+  <div class="gallery-modal" id="galleryModal" role="dialog" aria-modal="true" aria-label="Property photo gallery" aria-hidden="true">
+    <button class="gallery-close" type="button" aria-label="Close gallery">×</button>
+    <div class="gallery-dialog">
+      <button class="gallery-prev" type="button" aria-label="Previous photo">‹</button>
+      <div class="gallery-image-wrap"><img class="gallery-image" id="galleryImage" src="" alt=""></div>
+      <button class="gallery-next" type="button" aria-label="Next photo">›</button>
+      <div class="gallery-meta"><p class="gallery-caption" id="galleryCaption"></p><span class="gallery-counter" id="galleryCounter"></span></div>
+    </div>
+  </div>
+
   <footer><div class="footer-brand"><b>Stays North Beach</b><span>North Beach, Western Australia</span><a href="mailto:stay@staysnorthbeach.com.au">stay@staysnorthbeach.com.au</a></div><div class="social-links social-links-footer" aria-label="Social media"><a href="https://www.facebook.com/staysnorthbeach" target="_blank" rel="noopener noreferrer" aria-label="Stays North Beach on Facebook"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-9h3l.5-3h-3.5V8.1c0-.9.3-1.6 1.8-1.6H17V3.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.5v3h2.8v9h3.2Z"/></svg><span>Facebook</span></a><a href="https://www.instagram.com/stays_northbeach/" target="_blank" rel="noopener noreferrer" aria-label="Stays North Beach on Instagram"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 2h9.6A5.2 5.2 0 0 1 22 7.2v9.6a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 16.8V7.2A5.2 5.2 0 0 1 7.2 2Zm0 2A3.2 3.2 0 0 0 4 7.2v9.6A3.2 3.2 0 0 0 7.2 20h9.6a3.2 3.2 0 0 0 3.2-3.2V7.2A3.2 3.2 0 0 0 16.8 4H7.2Zm10.1 1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 6.7A5.3 5.3 0 1 1 6.7 12 5.3 5.3 0 0 1 12 6.7Zm0 2A3.3 3.3 0 1 0 15.3 12 3.3 3.3 0 0 0 12 8.7Z"/></svg><span>Instagram</span></a></div></footer>
-  <script src="site-config.js"></script><script src="script.js"></script>
+  <script src="site-config.js"></script><script src="script.js?v=20261014-1"></script>
 </body>
 </html>

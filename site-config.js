@@ -41,7 +41,6 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
     },true);
   }
 
-  const sprite='assets/gallery-sprite.jpg';
   const S=(cell,caption,alt)=>({sprite:true,cell,caption,alt});
   const I=(src,caption,alt)=>({src,caption,alt});
   const galleries={
@@ -74,33 +73,64 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
   };
 
   let state={key:null,index:0,lastFocus:null};
+  let spriteLoading=null;
   const modal=()=>document.getElementById('galleryModal');
   const image=()=>document.getElementById('galleryImage');
   const wrap=()=>document.querySelector('.gallery-image-wrap');
   const caption=()=>document.getElementById('galleryCaption');
   const counter=()=>document.getElementById('galleryCounter');
+
+  function ensureSprite(){
+    if(window.NBPS_GALLERY_SPRITE)return Promise.resolve(window.NBPS_GALLERY_SPRITE);
+    if(spriteLoading)return spriteLoading;
+    spriteLoading=new Promise((resolve,reject)=>{
+      const s=document.createElement('script');
+      s.src='/gallery-data.js?v=20261015-final';
+      s.async=true;
+      s.onload=()=>window.NBPS_GALLERY_SPRITE?resolve(window.NBPS_GALLERY_SPRITE):reject(new Error('Gallery image data missing'));
+      s.onerror=()=>reject(new Error('Gallery image data failed to load'));
+      document.head.appendChild(s);
+    });
+    return spriteLoading;
+  }
+
+  function showSprite(item){
+    const box=wrap(),img=image();
+    const col=item.cell%4,row=Math.floor(item.cell/4);
+    img.style.display='none';
+    box.style.backgroundImage=`url("${window.NBPS_GALLERY_SPRITE}")`;
+    box.style.backgroundRepeat='no-repeat';
+    box.style.backgroundSize='400% 400%';
+    box.style.backgroundPosition=`${col*33.333333}% ${row*33.333333}%`;
+    box.style.backgroundColor='#111';
+  }
+
   function render(){
     const items=galleries[state.key]||[];
     if(!items.length)return;
     state.index=(state.index+items.length)%items.length;
     const item=items[state.index];
     const img=image(),box=wrap();
+    caption().textContent=item.caption;
+    counter().textContent=`${state.index+1} of ${items.length}`;
     if(item.sprite){
-      const col=item.cell%4,row=Math.floor(item.cell/4);
+      box.style.backgroundImage='none';
       img.style.display='none';
-      box.style.backgroundImage=`url('${sprite}')`;
-      box.style.backgroundRepeat='no-repeat';
-      box.style.backgroundSize='400% 400%';
-      box.style.backgroundPosition=`${col*33.333333}% ${row*33.333333}%`;
-      box.style.backgroundColor='#111';
+      ensureSprite().then(()=>{
+        const active=(galleries[state.key]||[])[state.index];
+        if(active===item)showSprite(item);
+      }).catch(err=>{
+        console.error(err);
+        box.style.backgroundImage='none';
+        box.style.backgroundColor='#111';
+        caption().textContent='Photo could not be loaded';
+      });
     }else{
       box.style.backgroundImage='none';
       img.style.display='block';
       img.src=item.src;
       img.alt=item.alt;
     }
-    caption().textContent=item.caption;
-    counter().textContent=`${state.index+1} of ${items.length}`;
   }
   function open(key,index,trigger){
     if(!galleries[key]?.length||!modal())return;

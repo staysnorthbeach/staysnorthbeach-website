@@ -4,40 +4,23 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
   const form=document.getElementById('bookingForm');
   if(form){
     form.addEventListener('submit',async e=>{
-      e.preventDefault();
-      e.stopImmediatePropagation();
+      e.preventDefault();e.stopImmediatePropagation();
       const msg=document.getElementById('formMessage');
       const button=form.querySelector('button[type="submit"]');
-      if(!form.checkValidity()){
-        form.reportValidity();
-        if(msg)msg.textContent='Please complete the required fields above.';
-        return;
-      }
+      if(!form.checkValidity()){form.reportValidity();if(msg)msg.textContent='Please complete the required fields above.';return;}
       const start=form.querySelector('[name="checkin"]')?.value||'';
       const end=form.querySelector('[name="checkout"]')?.value||'';
-      if(end<=start){
-        if(msg)msg.textContent='Please choose a check-out date after check-in.';
-        return;
-      }
+      if(end<=start){if(msg)msg.textContent='Please choose a check-out date after check-in.';return;}
       if(button){button.disabled=true;button.textContent='Sending…';}
       if(msg)msg.textContent='Sending your enquiry securely…';
       try{
         const body=new URLSearchParams(new FormData(form)).toString();
-        const response=await fetch('/.netlify/functions/submit-enquiry',{
-          method:'POST',
-          headers:{'Content-Type':'application/x-www-form-urlencoded','Accept':'application/json'},
-          body,
-          cache:'no-store'
-        });
+        const response=await fetch('/.netlify/functions/submit-enquiry',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','Accept':'application/json'},body,cache:'no-store'});
         const result=await response.json().catch(()=>null);
         if(!response.ok||!result?.ok)throw new Error(result?.error||`Submission returned ${response.status}`);
         if(msg)msg.textContent='Enquiry sent. Opening your confirmation…';
         window.location.assign('/thank-you.html');
-      }catch(error){
-        console.error('Enquiry submission failed',error);
-        if(msg)msg.textContent='We could not send your enquiry just now. Please email stay@staysnorthbeach.com.au and we will help you directly.';
-        if(button){button.disabled=false;button.textContent='Request these dates';}
-      }
+      }catch(error){console.error('Enquiry submission failed',error);if(msg)msg.textContent='We could not send your enquiry just now. Please email stay@staysnorthbeach.com.au and we will help you directly.';if(button){button.disabled=false;button.textContent='Request these dates';}}
     },true);
   }
 
@@ -54,7 +37,6 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
       S(7,'Open-plan lounge and kitchen','The Midnight Hideaway lounge and kitchen'),
       S(4,'Dark exposed-brick kitchen','The Midnight Hideaway kitchen'),
       S(5,'Kitchen and island view','The Midnight Hideaway kitchen and island'),
-      S(6,'Kitchen detail','The Midnight Hideaway kitchen detail'),
       S(1,'Main bedroom','The Midnight Hideaway main bedroom'),
       S(0,'Flexible second bedroom','The Midnight Hideaway flexible second bedroom')
     ],
@@ -73,7 +55,7 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
   };
 
   let state={key:null,index:0,lastFocus:null};
-  let spriteLoading=null;
+  let spritePromise=null;
   const modal=()=>document.getElementById('galleryModal');
   const image=()=>document.getElementById('galleryImage');
   const wrap=()=>document.querySelector('.gallery-image-wrap');
@@ -81,17 +63,17 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
   const counter=()=>document.getElementById('galleryCounter');
 
   function ensureSprite(){
-    if(window.NBPS_GALLERY_SPRITE)return Promise.resolve(window.NBPS_GALLERY_SPRITE);
-    if(spriteLoading)return spriteLoading;
-    spriteLoading=new Promise((resolve,reject)=>{
-      const s=document.createElement('script');
-      s.src='/gallery-data.js?v=20261015-final';
-      s.async=true;
-      s.onload=()=>window.NBPS_GALLERY_SPRITE?resolve(window.NBPS_GALLERY_SPRITE):reject(new Error('Gallery image data missing'));
-      s.onerror=()=>reject(new Error('Gallery image data failed to load'));
-      document.head.appendChild(s);
+    if(window.NBPS_GALLERY_SPRITE?.startsWith('data:image/'))return Promise.resolve(window.NBPS_GALLERY_SPRITE);
+    if(spritePromise)return spritePromise;
+    const files=['/assets/gallery-v5/chunk-00.txt','/assets/gallery-v5/chunk-01.txt','/assets/gallery-v5/chunk-02.txt'];
+    spritePromise=Promise.all(files.map(p=>fetch(p+'?v=20261015-final2',{cache:'force-cache'}).then(r=>{if(!r.ok)throw new Error(`Gallery data ${r.status}`);return r.text();}))).then(parts=>{
+      const b64=parts.join('').replace(/\s+/g,'');
+      if(!b64.startsWith('UklGR'))throw new Error('Gallery image data invalid');
+      window.NBPS_GALLERY_SPRITE='data:image/webp;base64,'+b64;
+      const test=new Image();test.src=window.NBPS_GALLERY_SPRITE;
+      return test.decode?.().then(()=>window.NBPS_GALLERY_SPRITE).catch(()=>window.NBPS_GALLERY_SPRITE)||window.NBPS_GALLERY_SPRITE;
     });
-    return spriteLoading;
+    return spritePromise;
   }
 
   function showSprite(item){
@@ -106,69 +88,25 @@ window.NBPS_CONFIG={availabilityEndpoint:'/.netlify/functions/availability'};
   }
 
   function render(){
-    const items=galleries[state.key]||[];
-    if(!items.length)return;
+    const items=galleries[state.key]||[];if(!items.length)return;
     state.index=(state.index+items.length)%items.length;
-    const item=items[state.index];
-    const img=image(),box=wrap();
-    caption().textContent=item.caption;
-    counter().textContent=`${state.index+1} of ${items.length}`;
+    const item=items[state.index],img=image(),box=wrap();
+    caption().textContent=item.caption;counter().textContent=`${state.index+1} of ${items.length}`;
     if(item.sprite){
-      box.style.backgroundImage='none';
-      img.style.display='none';
-      ensureSprite().then(()=>{
-        const active=(galleries[state.key]||[])[state.index];
-        if(active===item)showSprite(item);
-      }).catch(err=>{
-        console.error(err);
-        box.style.backgroundImage='none';
-        box.style.backgroundColor='#111';
-        caption().textContent='Photo could not be loaded';
-      });
+      box.style.backgroundImage='none';box.style.backgroundColor='#111';img.style.display='none';
+      const key=state.key,index=state.index;
+      ensureSprite().then(()=>{if(state.key===key&&state.index===index)showSprite(item);}).catch(err=>{console.error('Gallery photo failed',err);if(state.key===key&&state.index===index)caption().textContent='Photo could not be loaded';});
     }else{
-      box.style.backgroundImage='none';
-      img.style.display='block';
-      img.src=item.src;
-      img.alt=item.alt;
+      box.style.backgroundImage='none';box.style.backgroundColor='#111';img.style.display='block';img.src=item.src;img.alt=item.alt;
     }
   }
-  function open(key,index,trigger){
-    if(!galleries[key]?.length||!modal())return;
-    state={key,index:Number(index)||0,lastFocus:trigger||document.activeElement};
-    render();
-    modal().classList.add('is-open');
-    modal().setAttribute('aria-hidden','false');
-    document.body.classList.add('gallery-modal-open');
-    modal().querySelector('.gallery-close')?.focus();
-  }
-  function close(){
-    if(!modal())return;
-    modal().classList.remove('is-open');
-    modal().setAttribute('aria-hidden','true');
-    document.body.classList.remove('gallery-modal-open');
-    if(image()){image().src='';image().style.display='block';}
-    if(wrap())wrap().style.backgroundImage='none';
-    state.lastFocus?.focus?.();
-    state={key:null,index:0,lastFocus:null};
-  }
+  function open(key,index,trigger){if(!galleries[key]?.length||!modal())return;state={key,index:Number(index)||0,lastFocus:trigger||document.activeElement};render();modal().classList.add('is-open');modal().setAttribute('aria-hidden','false');document.body.classList.add('gallery-modal-open');modal().querySelector('.gallery-close')?.focus();}
+  function close(){if(!modal())return;modal().classList.remove('is-open');modal().setAttribute('aria-hidden','true');document.body.classList.remove('gallery-modal-open');if(image()){image().src='';image().style.display='block';}if(wrap())wrap().style.backgroundImage='none';state.lastFocus?.focus?.();state={key:null,index:0,lastFocus:null};}
   function move(dir){state.index+=dir;render();}
-  document.addEventListener('click',e=>{
-    const trigger=e.target.closest?.('.gallery-trigger');
-    if(trigger){e.preventDefault();e.stopImmediatePropagation();open(trigger.dataset.gallery,trigger.dataset.index,trigger);return;}
-    if(!modal()?.classList.contains('is-open'))return;
-    if(e.target.closest?.('.gallery-close')){e.preventDefault();e.stopImmediatePropagation();close();return;}
-    if(e.target.closest?.('.gallery-prev')){e.preventDefault();e.stopImmediatePropagation();move(-1);return;}
-    if(e.target.closest?.('.gallery-next')){e.preventDefault();e.stopImmediatePropagation();move(1);return;}
-    if(e.target===modal()){e.preventDefault();e.stopImmediatePropagation();close();}
-  },true);
-  document.addEventListener('keydown',e=>{
-    if(!modal()?.classList.contains('is-open'))return;
-    if(e.key==='Escape'){e.stopImmediatePropagation();close();}
-    if(e.key==='ArrowLeft'){e.stopImmediatePropagation();move(-1);}
-    if(e.key==='ArrowRight'){e.stopImmediatePropagation();move(1);}
-  },true);
+  document.addEventListener('click',e=>{const trigger=e.target.closest?.('.gallery-trigger');if(trigger){e.preventDefault();e.stopImmediatePropagation();open(trigger.dataset.gallery,trigger.dataset.index,trigger);return;}if(!modal()?.classList.contains('is-open'))return;if(e.target.closest?.('.gallery-close')){e.preventDefault();e.stopImmediatePropagation();close();return;}if(e.target.closest?.('.gallery-prev')){e.preventDefault();e.stopImmediatePropagation();move(-1);return;}if(e.target.closest?.('.gallery-next')){e.preventDefault();e.stopImmediatePropagation();move(1);return;}if(e.target===modal()){e.preventDefault();e.stopImmediatePropagation();close();}},true);
+  document.addEventListener('keydown',e=>{if(!modal()?.classList.contains('is-open'))return;if(e.key==='Escape'){e.stopImmediatePropagation();close();}if(e.key==='ArrowLeft'){e.stopImmediatePropagation();move(-1);}if(e.key==='ArrowRight'){e.stopImmediatePropagation();move(1);}},true);
 
   const localCards=document.querySelectorAll('#local .local-grid article');
-  if(localCards[1]) localCards[1].querySelector('span').textContent='North Beach and Mettams Pool are only about a 4–5 minute walk away, making a quick beach swim or sunset stroll easy.';
-  if(localCards[2]) localCards[2].querySelector('span').textContent='Local cafés and casual dining are within easy walking distance, with Karrinyup and Scarborough also close by for more shopping and dining options.';
+  if(localCards[1])localCards[1].querySelector('span').textContent='North Beach and Mettams Pool are only about a 4–5 minute walk away, making a quick beach swim or sunset stroll easy.';
+  if(localCards[2])localCards[2].querySelector('span').textContent='Local cafés and casual dining are within easy walking distance, with Karrinyup and Scarborough also close by for more shopping and dining options.';
 })();
